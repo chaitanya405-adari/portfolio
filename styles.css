@@ -744,3 +744,286 @@ img {
     font-size: 0.9rem;
     padding: 0.6rem 1.2rem;
 }
+
+/* === Hero Layout Redesign === */
+
+.hero-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+    min-height: calc(100vh - var(--nav-height));
+    padding-top: var(--nav-height);
+}
+
+.hero-left {
+    flex: 1.2;
+}
+
+.hero-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* Small pill above name */
+.hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.hero-highlights {
+    list-style: none;
+    padding-left: 0;
+    margin: 0 0 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+}
+
+.hero-highlights li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.hero-highlights li::before {
+    content: '•';
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* Trust line under buttons */
+.hero-trust {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-trust .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--primary-color);
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.7);
+}
+
+/* Buttons micro-interactions */
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.hero-cta {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-cta::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-cta:hover::after {
+    opacity: 1;
+}
+
+/* === Hero KPI Card === */
+
+.hero-kpi-card {
+    background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.3), rgba(15, 23, 42, 0.96));
+    border-radius: 24px;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
+    max-width: 340px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.hero-kpi-card::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at top, rgba(129, 140, 248, 0.25), transparent 65%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.hero-kpi-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(226, 232, 240, 0.85);
+    margin-bottom: 1rem;
+}
+
+.hero-kpis {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.kpi-item {
+    padding: 0.75rem 0.9rem;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.kpi-main {
+    display: flex;
+    align-items: baseline;
+    gap: 0.15rem;
+    margin-bottom: 0.25rem;
+}
+
+.kpi-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #e5e7eb;
+}
+
+.kpi-suffix {
+    font-size: 1.1rem;
+    color: rgba(199, 210, 254, 0.9);
+}
+
+.kpi-caption {
+    font-size: 0.9rem;
+    color: rgba(148, 163, 184, 0.95);
+}
+
+.hero-kpi-footnote {
+    font-size: 0.8rem;
+    color: rgba(148, 163, 184, 0.9);
+    line-height: 1.5;
+}
+
+/* Hover / micro-interaction for KPI card */
+.hero-kpi-card:hover {
+    border-color: rgba(196, 181, 253, 0.9);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.95);
+}
+
+/* === Responsive Hero Adjustments === */
+
+@media (max-width: 900px) {
+    .hero-layout {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: calc(var(--nav-height) + 1rem);
+    }
+
+    .hero-right {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .hero-kpi-card {
+        max-width: 100%;
+    }
+
+    .hero-title {
+        font-size: 2.6rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero-pill {
+        font-size: 0.72rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* === Why Hire Me Section === */
+
+.why-hire-section {
+    background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 60%);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.why-hire-container {
+    display: flex;
+    justify-content: center;
+}
+
+.why-hire-content {
+    max-width: 900px;
+    text-align: center;
+}
+
+.why-points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.why-point {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 1.4rem;
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-point:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.why-point i {
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+}
+
+.why-point p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}

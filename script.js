@@ -89,4 +89,71 @@ document.addEventListener('DOMContentLoaded', () => {
             hamburger.classList.toggle('active');
         });
     }
+
+    // --- Animated KPI Counters ---
+    const kpiCounters = document.querySelectorAll('.kpi-number');
+
+    if (kpiCounters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-target'), 10);
+                    if (isNaN(target)) return;
+
+                    // Avoid re-running animation
+                    if (el.dataset.animated === 'true') {
+                        obs.unobserve(el);
+                        return;
+                    }
+                    el.dataset.animated = 'true';
+
+                    const duration = 1400;
+                    const startTime = performance.now();
+
+                    const animate = (now) => {
+                        const elapsed = now - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const value = Math.floor(progress * target);
+                        el.textContent = value.toLocaleString();
+
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            el.textContent = target.toLocaleString();
+                        }
+                    };
+
+                    requestAnimationFrame(animate);
+                    obs.unobserve(el);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        kpiCounters.forEach(counter => {
+            counterObserver.observe(counter);
+        });
+    }
+
+    // --- Subtle Tilt Effect on KPI Card ---
+    const heroKpiCard = document.querySelector('.hero-kpi-card');
+    if (heroKpiCard) {
+        heroKpiCard.addEventListener('mousemove', (e) => {
+            const rect = heroKpiCard.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+            const rotateX = (-y * 6).toFixed(2);
+            const rotateY = (x * 6).toFixed(2);
+
+            heroKpiCard.style.transform =
+                `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        });
+
+        heroKpiCard.addEventListener('mouseleave', () => {
+            heroKpiCard.style.transform =
+                'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        });
+    }
+
 });
